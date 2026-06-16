@@ -56,8 +56,12 @@ def main():
         props = track.get("properties", {})
 
         language = props.get("language", "und")
+        language_ietf = props.get("language_ietf", "")
         codec_id = props.get("codec_id", "")
         codec_name = track.get("codec", "")
+        
+        if language_ietf:
+            language = language_ietf
 
         if codec_id in ("S_TEXT/ASS", "S_TEXT/SSA") or codec_name == "SubStationAlpha":
             ext = "ass"
@@ -66,7 +70,7 @@ def main():
         else:
             ext = "sub"
 
-        output_name = f"{basename}_{language}_{track_id}.{ext}"
+        output_name = f"{basename}_{track_id}.{language}.{ext}"
         output_path = output_dir / output_name
 
         print(f"Preparing track {track_id} ({language}, {codec_id or codec_name}) -> {output_path}")
@@ -79,7 +83,7 @@ def main():
 
     cmd = ["mkvextract", "tracks", str(input_file)] + tracks_to_extract
 
-    print("\nRunning single mkvextract call...\n")
+    print("\nRunning mkvextract...\n")
 
     try:
         subprocess.run(cmd, check=True)
