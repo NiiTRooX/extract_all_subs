@@ -12,7 +12,7 @@ uv tool install git+https://github.com/NiiTRooX/extract_all_subs.git
 
 ## Usage
 ```
-extract-all-subs /path/to/mkv --out ~/.local/share/subs
+extract-all-subs /path/to/mkv --out subs
 ```
 
 The `--out` option is optional. If it is not specified, subs will be written to the current directory.
